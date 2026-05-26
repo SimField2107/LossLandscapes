@@ -1,0 +1,77 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.content {
+  @include glass;
+  padding: $space-8;
+  border-radius: $radius-2xl;
+
+  @include md {
+    padding: $space-12;
+  }
+}
+
+.chapterNumber {
+  display: block;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: $color-accent-primary;
+  letter-spacing: $letter-spacing-widest;
+  margin-bottom: $space-4;
+}
+
+.heading {
+  @include heading-2;
+  margin-bottom: $space-6;
+}
+
+.lead {
+  font-size: $font-size-xl;
+  color: $color-text-primary;
+  margin-bottom: $space-4;
+  line-height: $line-height-relaxed;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-4;
+  margin: $space-8 0;
+  padding: $space-6;
+  background: rgba($color-bg-elevated, 0.5);
+  border-radius: $radius-lg;
+  border: 1px solid $border-color;
+}
+
+.stat {
+  text-align: center;
+}
+
+.statValue {
+  display: block;
+  font-family: $font-family-mono;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-accent-secondary;
+  margin-bottom: $space-1;
+
+  @include md {
+    font-size: $font-size-3xl;
+  }
+}
+
+.statLabel {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+}
+
+.note {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  font-style: italic;
+  margin-top: $space-6;
+  padding-top: $space-6;
+  border-top: 1px solid $border-color;
+}

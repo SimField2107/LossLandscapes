@@ -1,0 +1,72 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.content {
+  @include glass;
+  padding: $space-8;
+  border-radius: $radius-2xl;
+
+  @include md {
+    padding: $space-12;
+  }
+}
+
+.chapterNumber {
+  display: block;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: $color-accent-primary;
+  letter-spacing: $letter-spacing-widest;
+  margin-bottom: $space-4;
+}
+
+.heading {
+  @include heading-2;
+  margin-bottom: $space-6;
+}
+
+.lead {
+  font-size: $font-size-xl;
+  color: $color-text-primary;
+  margin-bottom: $space-6;
+  line-height: $line-height-relaxed;
+
+  @include md {
+    font-size: $font-size-2xl;
+  }
+
+  strong {
+    color: $color-accent-secondary;
+  }
+}
+
+.insight {
+  display: flex;
+  gap: $space-4;
+  padding: $space-6;
+  background: rgba($color-accent-primary, 0.1);
+  border-left: 3px solid $color-accent-primary;
+  border-radius: 0 $radius-lg $radius-lg 0;
+  margin-top: $space-8;
+
+  p {
+    margin: 0;
+    color: $color-text-primary;
+
+    strong {
+      color: $color-accent-secondary;
+    }
+  }
+}
+
+.insightIcon {
+  @include flex-center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: $color-accent-primary;
+  color: white;
+  font-weight: $font-weight-bold;
+  border-radius: $radius-full;
+  font-size: $font-size-sm;
+}

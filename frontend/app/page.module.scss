@@ -1,0 +1,40 @@
+@use "../styles/tokens" as *;
+@use "../styles/mixins" as *;
+
+.main {
+  position: relative;
+  z-index: $z-content;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.loading {
+  @include flex-center;
+  position: fixed;
+  inset: 0;
+  background: $color-bg-primary;
+  z-index: $z-modal;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid $color-bg-elevated;
+  border-top-color: $color-accent-primary;
+  border-radius: $radius-full;
+  animation: spin 1s linear infinite;
+
+  @include reduced-motion {
+    animation: none;
+    border-color: $color-accent-primary;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

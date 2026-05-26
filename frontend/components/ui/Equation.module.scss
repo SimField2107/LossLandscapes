@@ -1,0 +1,25 @@
+@use "../../styles/tokens" as *;
+
+.equation {
+  display: inline;
+
+  :global(.katex) {
+    color: $color-text-primary;
+    font-size: 1.1em;
+  }
+}
+
+.block {
+  display: block;
+  margin: $space-8 0;
+  text-align: center;
+  overflow-x: auto;
+  padding: $space-4;
+  background: rgba($color-bg-elevated, 0.5);
+  border-radius: $radius-lg;
+  border: 1px solid $border-color;
+
+  :global(.katex) {
+    font-size: 1.3em;
+  }
+}

@@ -1,0 +1,59 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.chapter {
+  position: relative;
+  z-index: $z-content;
+  display: flex;
+  align-items: center;
+  padding: $space-16 $space-4;
+
+  @include md {
+    padding: $space-20 $space-8;
+  }
+}
+
+.fullHeight {
+  min-height: 100vh;
+}
+
+.content {
+  @include container;
+  max-width: $content-max-width;
+}
+
+.left {
+  justify-content: flex-start;
+
+  .content {
+    margin-left: 0;
+    margin-right: auto;
+
+    @include lg {
+      margin-left: 10%;
+    }
+  }
+}
+
+.center {
+  justify-content: center;
+
+  .content {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.right {
+  justify-content: flex-end;
+
+  .content {
+    margin-left: auto;
+    margin-right: 0;
+
+    @include lg {
+      margin-right: 10%;
+    }
+  }
+}

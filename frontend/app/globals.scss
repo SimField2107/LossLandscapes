@@ -1,0 +1,212 @@
+// =============================================================================
+// GLOBALS - Loss Landscape Visualizer
+// =============================================================================
+
+@use "../styles/tokens" as *;
+@use "../styles/mixins" as *;
+
+// KaTeX styles
+@import "katex/dist/katex.min.css";
+
+// -----------------------------------------------------------------------------
+// Reset & Base
+// -----------------------------------------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+
+  @include reduced-motion {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  font-family: $font-family-sans;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $color-text-primary;
+  background-color: $color-bg-primary;
+  min-height: 100vh;
+  overflow-x: hidden;
+  @include custom-scrollbar;
+}
+
+// -----------------------------------------------------------------------------
+// Typography Defaults
+// -----------------------------------------------------------------------------
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $color-text-primary;
+}
+
+h1 {
+  @include heading-1;
+}
+
+h2 {
+  @include heading-2;
+}
+
+h3 {
+  @include heading-3;
+}
+
+p {
+  @include body-text;
+  margin-bottom: $space-4;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  color: $color-accent-secondary;
+  text-decoration: none;
+  @include transition-fast;
+
+  &:hover {
+    color: $color-accent-primary;
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent-primary;
+    outline-offset: 2px;
+  }
+}
+
+strong,
+b {
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+code {
+  @include mono;
+  background: $color-bg-elevated;
+  padding: $space-1 $space-2;
+  border-radius: $radius-sm;
+}
+
+pre {
+  @include mono;
+  background: $color-bg-secondary;
+  padding: $space-4;
+  border-radius: $radius-md;
+  overflow-x: auto;
+  @include custom-scrollbar;
+
+  code {
+    background: none;
+    padding: 0;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Lists
+// -----------------------------------------------------------------------------
+ul,
+ol {
+  padding-left: $space-6;
+  margin-bottom: $space-4;
+}
+
+li {
+  margin-bottom: $space-2;
+  @include body-text;
+}
+
+// -----------------------------------------------------------------------------
+// Images & Media
+// -----------------------------------------------------------------------------
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// -----------------------------------------------------------------------------
+// Selection
+// -----------------------------------------------------------------------------
+::selection {
+  background: $color-accent-primary;
+  color: white;
+}
+
+// -----------------------------------------------------------------------------
+// Focus States
+// -----------------------------------------------------------------------------
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid $color-accent-primary;
+  outline-offset: 2px;
+}
+
+// -----------------------------------------------------------------------------
+// Reduced Motion
+// -----------------------------------------------------------------------------
+@include reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// KaTeX Overrides
+// -----------------------------------------------------------------------------
+.katex {
+  font-size: 1.1em;
+}
+
+.katex-display {
+  margin: $space-8 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  @include custom-scrollbar;
+}
+
+// -----------------------------------------------------------------------------
+// Utility Classes
+// -----------------------------------------------------------------------------
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.container {
+  @include container;
+}
+
+.content-width {
+  @include content-width;
+}

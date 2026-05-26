@@ -1,0 +1,205 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.content {
+  @include glass;
+  padding: $space-8;
+  border-radius: $radius-2xl;
+  max-width: 600px;
+  margin: 0 auto;
+
+  @include md {
+    padding: $space-12;
+  }
+}
+
+.chapterNumber {
+  display: block;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: $color-accent-primary;
+  letter-spacing: $letter-spacing-widest;
+  margin-bottom: $space-4;
+  text-align: center;
+}
+
+.heading {
+  @include heading-2;
+  margin-bottom: $space-6;
+  text-align: center;
+}
+
+.lead {
+  font-size: $font-size-xl;
+  color: $color-text-primary;
+  margin-bottom: $space-8;
+  text-align: center;
+}
+
+.instructions {
+  display: flex;
+  justify-content: center;
+  gap: $space-6;
+  margin-bottom: $space-8;
+  flex-wrap: wrap;
+}
+
+.instruction {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.icon {
+  font-size: $font-size-lg;
+}
+
+.note {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  text-align: center;
+  font-style: italic;
+}
+
+// Explorer Controls (used in the floating panel)
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  padding: $space-6;
+  @include glass-strong;
+  border-radius: $radius-xl;
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.label {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+}
+
+.tabs {
+  width: 100%;
+}
+
+.tabsList {
+  display: flex;
+  gap: $space-1;
+  padding: $space-1;
+  background: $color-bg-secondary;
+  border-radius: $radius-lg;
+}
+
+.tabsTrigger {
+  flex: 1;
+  padding: $space-2 $space-3;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  background: transparent;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  @include transition-fast;
+
+  &:hover {
+    color: $color-text-primary;
+  }
+
+  &[data-state="active"] {
+    background: $color-accent-primary;
+    color: white;
+  }
+}
+
+.switchRow {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+
+  .active {
+    color: $color-accent-secondary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.switch {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  background: $color-bg-elevated;
+  border-radius: $radius-full;
+  border: 1px solid $border-color;
+  cursor: pointer;
+  @include transition-fast;
+
+  &[data-state="checked"] {
+    background: $color-accent-primary;
+    border-color: $color-accent-primary;
+  }
+}
+
+.switchThumb {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: $radius-full;
+  box-shadow: $shadow-sm;
+  transform: translateX(2px);
+  transition: transform $duration-fast $ease-smooth;
+
+  &[data-state="checked"] {
+    transform: translateX(20px);
+  }
+}
+
+.slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+}
+
+.sliderTrack {
+  position: relative;
+  height: 4px;
+  flex-grow: 1;
+  background: $color-bg-elevated;
+  border-radius: $radius-full;
+}
+
+.sliderRange {
+  position: absolute;
+  height: 100%;
+  background: $color-accent-primary;
+  border-radius: $radius-full;
+}
+
+.sliderThumb {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: $radius-full;
+  box-shadow: $shadow-md;
+  cursor: pointer;
+  @include transition-fast;
+  @include focus-ring;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

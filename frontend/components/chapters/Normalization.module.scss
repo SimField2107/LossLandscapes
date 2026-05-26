@@ -1,0 +1,96 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.content {
+  @include glass;
+  padding: $space-8;
+  border-radius: $radius-2xl;
+
+  @include md {
+    padding: $space-12;
+  }
+}
+
+.chapterNumber {
+  display: block;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: $color-accent-primary;
+  letter-spacing: $letter-spacing-widest;
+  margin-bottom: $space-4;
+}
+
+.heading {
+  @include heading-2;
+  margin-bottom: $space-6;
+}
+
+.lead {
+  font-size: $font-size-lg;
+  color: $color-text-primary;
+  margin-bottom: $space-6;
+  line-height: $line-height-relaxed;
+
+  strong {
+    color: $color-accent-secondary;
+  }
+}
+
+.comparison {
+  display: grid;
+  gap: $space-4;
+  margin: $space-8 0;
+
+  @include md {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.comparisonItem {
+  padding: $space-6;
+  background: rgba($color-bg-elevated, 0.5);
+  border-radius: $radius-lg;
+  border: 1px solid $border-color;
+
+  h4 {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin-bottom: $space-2;
+  }
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin: 0;
+  }
+
+  &:first-child {
+    border-color: rgba($color-error, 0.3);
+
+    h4 {
+      color: $color-error;
+    }
+  }
+
+  &:last-child {
+    border-color: rgba($color-success, 0.3);
+
+    h4 {
+      color: $color-success;
+    }
+  }
+}
+
+.formula {
+  margin-top: $space-8;
+  padding: $space-6;
+  background: rgba($color-bg-secondary, 0.5);
+  border-radius: $radius-lg;
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-bottom: $space-4;
+  }
+}

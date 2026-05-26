@@ -1,0 +1,132 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.content {
+  @include glass;
+  padding: $space-8;
+  border-radius: $radius-2xl;
+  max-width: 800px;
+  margin: 0 auto;
+
+  @include md {
+    padding: $space-12;
+  }
+}
+
+.chapterNumber {
+  display: block;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: $color-accent-primary;
+  letter-spacing: $letter-spacing-widest;
+  margin-bottom: $space-4;
+  text-align: center;
+}
+
+.heading {
+  @include heading-2;
+  margin-bottom: $space-6;
+  text-align: center;
+}
+
+.lead {
+  font-size: $font-size-xl;
+  color: $color-text-primary;
+  margin-bottom: $space-8;
+  text-align: center;
+  line-height: $line-height-relaxed;
+
+  strong {
+    color: $color-accent-secondary;
+  }
+}
+
+.comparisonGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+  margin: $space-8 0;
+
+  @include md {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.architectureCard {
+  flex: 1;
+  max-width: 280px;
+  padding: $space-6;
+  background: rgba($color-bg-elevated, 0.6);
+  border-radius: $radius-xl;
+  border: 1px solid $border-color;
+  text-align: center;
+
+  h3 {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    margin-bottom: $space-3;
+  }
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin: 0;
+
+    strong {
+      display: block;
+      font-size: $font-size-base;
+      color: $color-text-primary;
+      margin-bottom: $space-1;
+    }
+  }
+}
+
+.cardHeader {
+  margin-bottom: $space-4;
+}
+
+.badge {
+  display: inline-block;
+  padding: $space-1 $space-3;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: $letter-spacing-wide;
+  text-transform: uppercase;
+  background: rgba($color-error, 0.2);
+  color: $color-error;
+  border-radius: $radius-full;
+}
+
+.badgeSuccess {
+  background: rgba($color-success, 0.2);
+  color: $color-success;
+}
+
+.arrow {
+  @include flex-center;
+  width: 40px;
+  height: 40px;
+  color: $color-text-muted;
+  transform: rotate(90deg);
+
+  @include md {
+    transform: rotate(0deg);
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.insight {
+  font-size: $font-size-base;
+  color: $color-accent-secondary;
+  text-align: center;
+  font-style: italic;
+  margin-top: $space-8;
+  padding-top: $space-6;
+  border-top: 1px solid $border-color;
+}

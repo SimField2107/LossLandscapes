@@ -1,0 +1,23 @@
+{
+  "landscapes": [
+    {
+      "id": "resnet56_short",
+      "label": "ResNet-56 (with skip connections)",
+      "architecture": "resnet56",
+      "file": "resnet56_short.json"
+    },
+    {
+      "id": "resnet56_noshort",
+      "label": "ResNet-56 (without skip connections)",
+      "architecture": "resnet56_noskip",
+      "file": "resnet56_noshort.json"
+    },
+    {
+      "id": "vgg9",
+      "label": "VGG-9",
+      "architecture": "vgg9",
+      "file": "vgg9.json"
+    }
+  ],
+  "defaultId": "resnet56_short"
+}
