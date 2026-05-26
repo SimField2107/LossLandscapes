@@ -4,17 +4,15 @@ varying vec3 vPosition;
 varying float vHeight;
 varying vec3 vViewPosition;
 
-uniform vec3 uColorLow;
-uniform vec3 uColorMid;
-uniform vec3 uColorHigh;
 uniform float uFresnelPower;
 uniform float uRimIntensity;
 uniform vec3 uRimColor;
 uniform int uColorMode;
 uniform sampler2D uGradientMap;
 uniform float uMorph;
+uniform float uWireframeBlend;
+uniform float uGridStrength;
 
-// Jet/Rainbow colormap (classic scientific look)
 vec3 jet(float t) {
   t = clamp(t, 0.0, 1.0);
   
@@ -34,7 +32,6 @@ vec3 jet(float t) {
   return color;
 }
 
-// Turbo colormap (improved rainbow, perceptually better)
 vec3 turbo(float t) {
   const vec3 c0 = vec3(0.1140890109226559, 0.06288340699912215, 0.2248337216805064);
   const vec3 c1 = vec3(6.716419496985708, 3.182286745507602, 7.571581586103393);
@@ -47,7 +44,6 @@ vec3 turbo(float t) {
   return c0 + t * (c1 + t * (c2 + t * (c3 + t * (c4 + t * (c5 + t * c6)))));
 }
 
-// Viridis colormap (perceptually uniform)
 vec3 viridis(float t) {
   const vec3 c0 = vec3(0.2777, 0.0054, 0.3340);
   const vec3 c1 = vec3(0.1050, 0.6388, 0.7267);
@@ -60,6 +56,12 @@ vec3 viridis(float t) {
   return c0 + t * (c1 + t * (c2 + t * (c3 + t * (c4 + t * (c5 + t * c6)))));
 }
 
+float gridLine(vec2 uv, float divisions, float thickness) {
+  vec2 grid = abs(fract(uv * divisions - 0.5) - 0.5) / fwidth(uv * divisions);
+  float line = min(grid.x, grid.y);
+  return 1.0 - min(line, thickness) / thickness;
+}
+
 void main() {
   vec3 normal = normalize(vNormal);
   vec3 viewDir = normalize(vViewPosition);
@@ -68,34 +70,33 @@ void main() {
   vec3 baseColor;
   
   if (uColorMode == 0) {
-    // Default: Jet colormap (classic scientific)
     baseColor = jet(heightNorm);
   } else if (uColorMode == 1) {
-    // Turbo colormap (modern scientific)
     baseColor = turbo(heightNorm);
   } else {
-    // Gradient magnitude with Viridis
     float gradMag = texture2D(uGradientMap, vUv).r;
     baseColor = viridis(clamp(gradMag, 0.0, 1.0));
   }
   
-  // Diffuse lighting
-  vec3 lightDir = normalize(vec3(1.0, 1.0, 0.5));
+  vec3 lightDir = normalize(vec3(0.5, 1.0, 0.5));
   float diffuse = max(dot(normal, lightDir), 0.0);
-  diffuse = diffuse * 0.5 + 0.5;
+  diffuse = diffuse * 0.4 + 0.6;
   
-  // Specular highlight
   vec3 halfDir = normalize(lightDir + viewDir);
-  float specular = pow(max(dot(normal, halfDir), 0.0), 64.0);
+  float specular = pow(max(dot(normal, halfDir), 0.0), 48.0);
   
-  // Subtle rim lighting
   float fresnel = pow(1.0 - max(dot(normal, viewDir), 0.0), uFresnelPower);
-  vec3 rimLight = uRimColor * fresnel * uRimIntensity * 0.5;
+  vec3 rimLight = uRimColor * fresnel * uRimIntensity;
   
-  // Combine
   vec3 color = baseColor * diffuse;
-  color += vec3(1.0) * specular * 0.2;
-  color += rimLight;
+  color += vec3(1.0) * specular * 0.15;
+  color += rimLight * 0.5;
+  
+  if (uGridStrength > 0.0) {
+    float grid = gridLine(vUv, 20.0, 1.5);
+    vec3 gridColor = mix(color, vec3(1.0), 0.4);
+    color = mix(color, gridColor, grid * uGridStrength);
+  }
   
   gl_FragColor = vec4(color, 1.0);
 }

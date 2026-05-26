@@ -1,11 +1,13 @@
 "use client";
 
+import { useMemo } from "react";
 import LossSurface from "./scene/LossSurface";
 import CameraRig from "./scene/CameraRig";
 import TrajectoryLine from "./scene/TrajectoryLine";
+import PlotBox from "./scene/PlotBox";
 import { useLandscape } from "@/hooks/useLandscape";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
-import type { ChapterId, ColorMode } from "@/lib/landscape";
+import type { ChapterId, ColorMode, LandscapeData } from "@/lib/landscape";
 
 interface SceneProps {
   activeArchitecture?: string;
@@ -56,6 +58,20 @@ function getChapterConfig(chapterId: ChapterId) {
   }
 }
 
+function getLossRange(landscape: LandscapeData | null): [number, number] {
+  if (!landscape) return [0, 1];
+
+  let min = Infinity;
+  let max = -Infinity;
+  for (const row of landscape.loss) {
+    for (const val of row) {
+      if (val < min) min = val;
+      if (val > max) max = val;
+    }
+  }
+  return [min, max];
+}
+
 export default function Scene({
   activeArchitecture,
   colorMode = "jet",
@@ -91,6 +107,8 @@ export default function Scene({
   const shouldEnableControls =
     enableControls || activeChapter === "explorer";
 
+  const lossRange = useMemo(() => getLossRange(landscapeA), [landscapeA]);
+
   return (
     <>
       <CameraRig
@@ -100,12 +118,22 @@ export default function Scene({
         autoRotateSpeed={0.3}
       />
 
+      <PlotBox
+        size={2}
+        height={0.85}
+        gridDivisions={10}
+        alphaRange={landscapeA?.alphaRange ?? [-1, 1]}
+        betaRange={landscapeA?.betaRange ?? [-1, 1]}
+        lossRange={lossRange}
+      />
+
       <LossSurface
         landscapeA={landscapeA}
         landscapeB={landscapeIdB ? landscapeB : undefined}
         morphProgress={morphProgress}
         heightScale={0.8}
         colorMode={colorMode}
+        showGrid={true}
       />
 
       {showTrajectory && landscapeA?.trajectory && (
@@ -114,7 +142,7 @@ export default function Scene({
           landscape={landscapeA}
           heightScale={0.8}
           progress={trajectoryProgress}
-          color="#f59e0b"
+          color="#ffffff"
           lineWidth={3}
         />
       )}

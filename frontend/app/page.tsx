@@ -12,6 +12,7 @@ import Trajectory from "@/components/chapters/Trajectory";
 import Explorer from "@/components/chapters/Explorer";
 import Citation from "@/components/chapters/Citation";
 import ExplorerPanel from "@/components/ExplorerPanel";
+import Colorbar from "@/components/Colorbar";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 import type { ColorMode } from "@/lib/landscape";
 import styles from "./page.module.scss";
@@ -30,17 +31,21 @@ function PageContent() {
   const [showTrajectory, setShowTrajectory] = useState(false);
 
   const isExplorerActive = activeChapter === "explorer";
+  const activeColorMode = isExplorerActive ? colorMode : "jet";
+  const isCitation = activeChapter === "citation";
 
   return (
     <>
       <LandscapeCanvas enablePostProcessing={true}>
         <Scene
           activeArchitecture={isExplorerActive ? architecture : undefined}
-          colorMode={isExplorerActive ? colorMode : "jet"}
+          colorMode={activeColorMode}
           showTrajectory={isExplorerActive ? showTrajectory : false}
           enableControls={isExplorerActive}
         />
       </LandscapeCanvas>
+
+      <Colorbar colorMode={activeColorMode} visible={!isCitation} />
 
       <ExplorerPanel
         visible={isExplorerActive}

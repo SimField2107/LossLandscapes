@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -19,14 +19,14 @@ interface CameraKeyframe {
 }
 
 const CAMERA_KEYFRAMES: CameraKeyframe[] = [
-  { position: [2.5, 2, 2.5], target: [0, 0, 0] },
-  { position: [2, 1.8, 2], target: [0, 0.1, 0] },
-  { position: [1.5, 2.5, 1.5], target: [0, 0.2, 0] },
-  { position: [0, 3, 0.1], target: [0, 0, 0] },
-  { position: [3, 1.5, 0], target: [0, 0.1, 0] },
-  { position: [2, 2, 2], target: [0, 0, 0] },
-  { position: [2.5, 2, 2.5], target: [0, 0, 0] },
-  { position: [2.5, 2, 2.5], target: [0, 0, 0] },
+  { position: [2.8, 1.8, 2.8], target: [0, 0.3, 0] },
+  { position: [3.0, 1.6, 2.2], target: [0, 0.3, 0] },
+  { position: [2.5, 2.0, 2.5], target: [0, 0.35, 0] },
+  { position: [3.2, 1.4, 1.0], target: [0, 0.3, 0] },
+  { position: [2.0, 2.2, 3.0], target: [0, 0.4, 0] },
+  { position: [3.0, 1.5, 1.5], target: [0, 0.3, 0] },
+  { position: [2.8, 1.8, 2.8], target: [0, 0.3, 0] },
+  { position: [2.8, 1.8, 2.8], target: [0, 0.3, 0] },
 ];
 
 function getInterpolatedKeyframe(
@@ -63,32 +63,52 @@ export default function CameraRig({
 }: CameraRigProps) {
   const controlsRef = useRef<React.ElementRef<typeof OrbitControls>>(null);
   const { camera } = useThree();
+  const [isUserControlling, setIsUserControlling] = useState(false);
+  const lastInteractionRef = useRef(0);
 
   useFrame(() => {
     if (enableControls) return;
 
-    const { position, target } = getInterpolatedKeyframe(progress);
+    const sinceInteraction = Date.now() - lastInteractionRef.current;
+    if (isUserControlling) return;
+    if (sinceInteraction < 3000) return;
 
-    camera.position.lerp(position, 0.05);
+    const { position, target } = getInterpolatedKeyframe(progress);
+    camera.position.lerp(position, 0.04);
 
     if (controlsRef.current) {
-      controlsRef.current.target.lerp(target, 0.05);
+      controlsRef.current.target.lerp(target, 0.04);
       controlsRef.current.update();
     }
   });
 
+  const handleStart = () => {
+    setIsUserControlling(true);
+    lastInteractionRef.current = Date.now();
+  };
+
+  const handleEnd = () => {
+    setIsUserControlling(false);
+    lastInteractionRef.current = Date.now();
+  };
+
   return (
     <OrbitControls
       ref={controlsRef}
-      enableZoom={enableControls}
+      enableZoom
       enablePan={enableControls}
-      enableRotate={enableControls}
-      autoRotate={autoRotate && !enableControls}
+      enableRotate
+      autoRotate={autoRotate && !isUserControlling}
       autoRotateSpeed={autoRotateSpeed}
-      minDistance={1}
-      maxDistance={10}
-      minPolarAngle={Math.PI / 6}
-      maxPolarAngle={Math.PI / 2.2}
+      minDistance={1.5}
+      maxDistance={8}
+      minPolarAngle={0.1}
+      maxPolarAngle={Math.PI / 2.05}
+      dampingFactor={0.08}
+      rotateSpeed={0.7}
+      zoomSpeed={0.8}
+      onStart={handleStart}
+      onEnd={handleEnd}
     />
   );
 }

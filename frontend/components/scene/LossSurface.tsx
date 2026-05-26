@@ -14,6 +14,7 @@ interface LossSurfaceProps {
   morphProgress?: number;
   heightScale?: number;
   colorMode?: "jet" | "turbo" | "gradient";
+  showGrid?: boolean;
   wireframe?: boolean;
 }
 
@@ -68,6 +69,7 @@ export default function LossSurface({
   morphProgress = 0,
   heightScale = 0.8,
   colorMode = "jet",
+  showGrid = true,
   wireframe = false,
 }: LossSurfaceProps) {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -97,15 +99,14 @@ export default function LossSurface({
       uGradientMap: { value: gradientTextureA },
       uHeightScale: { value: heightScale },
       uMorph: { value: 0 },
-      uColorLow: { value: new THREE.Color("#0000ff") },
-      uColorMid: { value: new THREE.Color("#00ff00") },
-      uColorHigh: { value: new THREE.Color("#ff0000") },
       uFresnelPower: { value: 3.0 },
-      uRimIntensity: { value: 0.3 },
+      uRimIntensity: { value: 0.25 },
       uRimColor: { value: new THREE.Color("#ffffff") },
       uColorMode: { value: 0 },
+      uGridStrength: { value: showGrid ? 0.35 : 0 },
+      uWireframeBlend: { value: 0 },
     }),
-    [heightTextureA, heightTextureB, gradientTextureA, heightScale]
+    [heightTextureA, heightTextureB, gradientTextureA, heightScale, showGrid]
   );
 
   useEffect(() => {
@@ -125,6 +126,12 @@ export default function LossSurface({
     }
   }, [colorMode]);
 
+  useEffect(() => {
+    if (materialRef.current) {
+      materialRef.current.uniforms.uGridStrength.value = showGrid ? 0.35 : 0;
+    }
+  }, [showGrid]);
+
   useFrame(() => {
     if (materialRef.current) {
       const currentMorph = materialRef.current.uniforms.uMorph.value;
@@ -139,16 +146,18 @@ export default function LossSurface({
   }
 
   return (
-    <mesh ref={meshRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-      <planeGeometry args={[2, 2, gridSize - 1, gridSize - 1]} />
-      <shaderMaterial
-        ref={materialRef}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={uniforms}
-        wireframe={wireframe}
-        side={THREE.DoubleSide}
-      />
-    </mesh>
+    <group>
+      <mesh ref={meshRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+        <planeGeometry args={[2, 2, gridSize - 1, gridSize - 1]} />
+        <shaderMaterial
+          ref={materialRef}
+          vertexShader={vertexShader}
+          fragmentShader={fragmentShader}
+          uniforms={uniforms}
+          wireframe={wireframe}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+    </group>
   );
 }

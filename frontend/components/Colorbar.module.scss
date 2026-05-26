@@ -1,0 +1,75 @@
+@use "../styles/tokens" as *;
+@use "../styles/mixins" as *;
+
+.colorbar {
+  position: fixed;
+  right: $space-6;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: $z-fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-4;
+  @include glass-strong;
+  border-radius: $radius-lg;
+  pointer-events: none;
+
+  @include md {
+    right: $space-8;
+  }
+}
+
+.label {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  letter-spacing: $letter-spacing-wider;
+  text-transform: uppercase;
+}
+
+.barContainer {
+  display: flex;
+  align-items: stretch;
+  gap: $space-2;
+  height: 220px;
+}
+
+.bar {
+  width: 16px;
+  height: 100%;
+  border-radius: $radius-sm;
+  border: 1px solid $border-color;
+  box-shadow: $shadow-sm;
+}
+
+.ticks {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.tick {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    width: 4px;
+    height: 1px;
+    background: $color-text-muted;
+  }
+}
+
+.tickValue {
+  font-family: $font-family-mono;
+  font-size: 10px;
+  color: $color-text-secondary;
+  line-height: 1;
+}

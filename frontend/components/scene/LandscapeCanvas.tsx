@@ -6,9 +6,7 @@ import {
   EffectComposer,
   Bloom,
   Vignette,
-  ChromaticAberration,
 } from "@react-three/postprocessing";
-import { BlendFunction } from "postprocessing";
 import { Suspense, type ReactNode } from "react";
 import styles from "./LandscapeCanvas.module.scss";
 
@@ -21,18 +19,14 @@ interface LandscapeCanvasProps {
 
 function PostProcessingStack() {
   return (
-    <EffectComposer multisampling={4}>
+    <EffectComposer multisampling={8}>
       <Bloom
-        intensity={0.5}
-        luminanceThreshold={0.6}
+        intensity={0.15}
+        luminanceThreshold={0.85}
         luminanceSmoothing={0.9}
         mipmapBlur
       />
-      <ChromaticAberration
-        blendFunction={BlendFunction.NORMAL}
-        offset={[0.0005, 0.0005]}
-      />
-      <Vignette darkness={0.4} offset={0.3} />
+      <Vignette darkness={0.3} offset={0.4} />
     </EffectComposer>
   );
 }
@@ -47,8 +41,8 @@ export default function LandscapeCanvas({
     <div className={`${styles.canvasContainer} ${className ?? ""}`}>
       <Canvas
         camera={{
-          position: [2.5, 2, 2.5],
-          fov: 45,
+          position: [2.8, 1.8, 2.8],
+          fov: 40,
           near: 0.1,
           far: 100,
         }}
@@ -62,16 +56,21 @@ export default function LandscapeCanvas({
         <Suspense fallback={null}>
           <color attach="background" args={["#0d1117"]} />
 
-          <ambientLight intensity={0.3} />
+          <ambientLight intensity={0.5} />
           <directionalLight
-            position={[5, 5, 5]}
-            intensity={0.8}
+            position={[5, 8, 5]}
+            intensity={0.9}
             castShadow={false}
           />
           <directionalLight
-            position={[-3, 3, -3]}
+            position={[-5, 3, -5]}
             intensity={0.3}
-            color="#818cf8"
+            color="#ffffff"
+          />
+          <directionalLight
+            position={[0, -2, 5]}
+            intensity={0.15}
+            color="#ffffff"
           />
 
           {children}
