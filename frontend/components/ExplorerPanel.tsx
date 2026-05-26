@@ -26,7 +26,16 @@ export default function ExplorerPanel({
   if (!visible) return null;
 
   return (
-    <div className={styles.panel}>
+    <aside className={styles.panel}>
+      <div className={styles.header}>
+        <span className={styles.chapterLabel}>06 · Explorer</span>
+        <h2 className={styles.chapterTitle}>Interactive Playground</h2>
+        <p className={styles.chapterDescription}>
+          The graph is yours. Rotate, zoom, and switch architectures to compare
+          their landscapes side by side.
+        </p>
+      </div>
+
       <ExplorerControls
         architecture={architecture}
         onArchitectureChange={onArchitectureChange}
@@ -35,6 +44,14 @@ export default function ExplorerPanel({
         showTrajectory={showTrajectory}
         onShowTrajectoryChange={onShowTrajectoryChange}
       />
-    </div>
+
+      <div className={styles.hint}>
+        <span className={styles.hintBullet} />
+        <span>
+          <strong>Drag</strong> to rotate, <strong>scroll</strong> to zoom,{" "}
+          <strong>right-click drag</strong> to pan.
+        </span>
+      </div>
+    </aside>
   );
 }

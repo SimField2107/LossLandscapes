@@ -1,72 +1,55 @@
 @use "../../styles/tokens" as *;
 @use "../../styles/mixins" as *;
 
-.content {
-  @include glass;
-  padding: $space-8;
-  border-radius: $radius-2xl;
-  max-width: 600px;
-  margin: 0 auto;
+.explorerSection {
+  position: relative;
+  z-index: $z-content;
+  min-height: 180vh;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: $space-12;
+}
 
-  @include md {
-    padding: $space-12;
+.scrollHint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+  pointer-events: none;
+  opacity: 0.5;
+  animation: pulse 2.5s ease-in-out infinite;
+
+  span {
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+    letter-spacing: $letter-spacing-wider;
+    text-transform: uppercase;
   }
 }
 
-.chapterNumber {
-  display: block;
-  font-family: $font-family-mono;
-  font-size: $font-size-sm;
-  color: $color-accent-primary;
-  letter-spacing: $letter-spacing-widest;
-  margin-bottom: $space-4;
-  text-align: center;
+.scrollHintLine {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    $color-text-secondary
+  );
 }
 
-.heading {
-  @include heading-2;
-  margin-bottom: $space-6;
-  text-align: center;
-}
-
-.lead {
-  font-size: $font-size-xl;
-  color: $color-text-primary;
-  margin-bottom: $space-8;
-  text-align: center;
-}
-
-.instructions {
-  display: flex;
-  justify-content: center;
-  gap: $space-6;
-  margin-bottom: $space-8;
-  flex-wrap: wrap;
-}
-
-.instruction {
-  display: flex;
-  align-items: center;
-  gap: $space-2;
-  font-size: $font-size-sm;
-  color: $color-text-secondary;
-}
-
-.icon {
-  font-family: $font-family-mono;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-semibold;
-  color: $color-accent-primary;
-  background: rgba($color-accent-primary, 0.1);
-  padding: $space-1 $space-2;
-  border-radius: $radius-sm;
-}
-
-.note {
-  font-size: $font-size-sm;
-  color: $color-text-muted;
-  text-align: center;
-  font-style: italic;
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(4px);
+  }
 }
 
 // Explorer Controls (used in the floating panel)

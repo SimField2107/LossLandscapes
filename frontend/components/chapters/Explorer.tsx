@@ -2,7 +2,6 @@
 
 import * as Tabs from "@radix-ui/react-tabs";
 import * as Switch from "@radix-ui/react-switch";
-import ChapterLayout from "./ChapterLayout";
 import type { ColorMode } from "@/lib/landscape";
 import styles from "./Explorer.module.scss";
 
@@ -90,36 +89,11 @@ export function ExplorerControls({
 
 export default function Explorer() {
   return (
-    <ChapterLayout id="explorer" align="center">
-      <div className={styles.content}>
-        <span className={styles.chapterNumber}>06</span>
-        <h2 className={styles.heading}>Interactive Explorer</h2>
-
-        <p className={styles.lead}>
-          Now it&apos;s your turn. Explore the loss landscapes freely.
-        </p>
-
-        <div className={styles.instructions}>
-          <div className={styles.instruction}>
-            <span className={styles.icon}>Click + Drag</span>
-            <span>Rotate view</span>
-          </div>
-          <div className={styles.instruction}>
-            <span className={styles.icon}>Scroll</span>
-            <span>Zoom in/out</span>
-          </div>
-          <div className={styles.instruction}>
-            <span className={styles.icon}>Controls</span>
-            <span>Switch architectures</span>
-          </div>
-        </div>
-
-        <p className={styles.note}>
-          Use the control panel above to switch between different neural network
-          architectures and colormaps. Observe how skip connections create smooth,
-          convex landscapes while networks without them exhibit chaotic terrain.
-        </p>
+    <section id="chapter-explorer" className={styles.explorerSection}>
+      <div className={styles.scrollHint}>
+        <div className={styles.scrollHintLine} />
+        <span>Scroll to continue</span>
       </div>
-    </ChapterLayout>
+    </section>
   );
 }

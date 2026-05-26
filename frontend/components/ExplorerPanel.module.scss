@@ -3,26 +3,84 @@
 
 .panel {
   position: fixed;
-  top: $space-6;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  left: $space-6;
+  transform: translateY(-50%);
   z-index: $z-fixed;
-  min-width: 320px;
-  animation: fadeIn 0.5s ease-out;
+  width: 320px;
+  animation: slideIn 0.5s $ease-smooth;
 
   @include md {
-    top: $space-8;
-    min-width: 400px;
+    left: $space-8;
+    width: 360px;
   }
 }
 
-@keyframes fadeIn {
+.header {
+  margin-bottom: $space-4;
+  padding: 0 $space-2;
+}
+
+.chapterLabel {
+  display: block;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: $color-accent-primary;
+  letter-spacing: $letter-spacing-widest;
+  margin-bottom: $space-2;
+}
+
+.chapterTitle {
+  font-family: $font-family-serif;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  letter-spacing: $letter-spacing-tight;
+  line-height: $line-height-tight;
+  margin-bottom: $space-3;
+}
+
+.chapterDescription {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.hint {
+  margin-top: $space-4;
+  padding: $space-3 $space-4;
+  background: rgba($color-accent-primary, 0.08);
+  border: 1px solid rgba($color-accent-primary, 0.25);
+  border-radius: $radius-md;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-snug;
+  display: flex;
+  align-items: flex-start;
+  gap: $space-2;
+
+  strong {
+    color: $color-accent-secondary;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+.hintBullet {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  background: $color-accent-primary;
+  border-radius: $radius-full;
+  margin-top: 5px;
+}
+
+@keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateY(-50%) translateX(-20px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(-50%) translateX(0);
   }
 }

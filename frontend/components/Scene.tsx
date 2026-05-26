@@ -104,8 +104,8 @@ export default function Scene({
   const trajectoryProgress =
     activeChapter === "trajectory" ? getChapterProgress("trajectory") : 1;
 
-  const shouldEnableControls =
-    enableControls || activeChapter === "explorer";
+  const isExplorerActive = activeChapter === "explorer";
+  const shouldEnableControls = enableControls || isExplorerActive;
 
   const lossRange = useMemo(() => getLossRange(landscapeA), [landscapeA]);
 
@@ -116,6 +116,7 @@ export default function Scene({
         enableControls={shouldEnableControls}
         autoRotate={config.autoRotate && !shouldEnableControls}
         autoRotateSpeed={0.3}
+        focusMode={isExplorerActive}
       />
 
       <PlotBox

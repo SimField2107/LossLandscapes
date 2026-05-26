@@ -11,6 +11,7 @@ interface CameraRigProps {
   enableControls?: boolean;
   autoRotate?: boolean;
   autoRotateSpeed?: number;
+  focusMode?: boolean;
 }
 
 interface CameraKeyframe {
@@ -55,11 +56,17 @@ function getInterpolatedKeyframe(
   return { position, target };
 }
 
+const FOCUS_KEYFRAME: CameraKeyframe = {
+  position: [2.2, 1.4, 2.2],
+  target: [0.3, 0.35, 0],
+};
+
 export default function CameraRig({
   progress = 0,
   enableControls = false,
   autoRotate = false,
   autoRotateSpeed = 0.5,
+  focusMode = false,
 }: CameraRigProps) {
   const controlsRef = useRef<React.ElementRef<typeof OrbitControls>>(null);
   const { camera } = useThree();
@@ -67,13 +74,22 @@ export default function CameraRig({
   const lastInteractionRef = useRef(0);
 
   useFrame(() => {
-    if (enableControls) return;
-
     const sinceInteraction = Date.now() - lastInteractionRef.current;
     if (isUserControlling) return;
     if (sinceInteraction < 3000) return;
 
-    const { position, target } = getInterpolatedKeyframe(progress);
+    let position: THREE.Vector3;
+    let target: THREE.Vector3;
+
+    if (focusMode) {
+      position = new THREE.Vector3(...FOCUS_KEYFRAME.position);
+      target = new THREE.Vector3(...FOCUS_KEYFRAME.target);
+    } else {
+      const interp = getInterpolatedKeyframe(progress);
+      position = interp.position;
+      target = interp.target;
+    }
+
     camera.position.lerp(position, 0.04);
 
     if (controlsRef.current) {
