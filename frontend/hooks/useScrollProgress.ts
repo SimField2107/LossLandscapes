@@ -30,35 +30,67 @@ export function useScrollProgress() {
     scrollTriggersRef.current = [];
 
     const totalChapters = CHAPTER_ORDER.length;
+    const progressMap = new Map<ChapterId, number>(
+      CHAPTER_ORDER.map((id) => [id, 0])
+    );
+    const visibilityMap = new Map<ChapterId, number>(
+      CHAPTER_ORDER.map((id) => [id, 0])
+    );
 
-    CHAPTER_ORDER.forEach((chapterId, index) => {
+    const recomputeState = () => {
+      let activeChapter: ChapterId = CHAPTER_ORDER[0];
+      let bestScore = -Infinity;
+
+      CHAPTER_ORDER.forEach((id) => {
+        const visibility = visibilityMap.get(id) ?? 0;
+        if (visibility <= 0) return;
+
+        const score = 1 - Math.abs(visibility - 0.5) * 2;
+        if (score > bestScore) {
+          bestScore = score;
+          activeChapter = id;
+        }
+      });
+
+      const activeIdx = CHAPTER_ORDER.indexOf(activeChapter);
+      const activeProgress = progressMap.get(activeChapter) ?? 0;
+      const globalProgress = (activeIdx + activeProgress) / totalChapters;
+
+      setState({
+        globalProgress,
+        activeChapter,
+        chapterProgress: new Map(progressMap),
+      });
+    };
+
+    CHAPTER_ORDER.forEach((chapterId) => {
       const element = document.getElementById(`chapter-${chapterId}`);
       if (!element) return;
 
-      const trigger = ScrollTrigger.create({
+      const visibilityTrigger = ScrollTrigger.create({
+        trigger: element,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        onUpdate: (self) => {
+          visibilityMap.set(chapterId, self.progress);
+          recomputeState();
+        },
+      });
+
+      const progressTrigger = ScrollTrigger.create({
         trigger: element,
         start: "top center",
         end: "bottom center",
         scrub: true,
         onUpdate: (self) => {
-          setState((prev) => {
-            const newProgress = new Map(prev.chapterProgress);
-            newProgress.set(chapterId, self.progress);
-
-            const globalProgress =
-              (index + self.progress) / totalChapters;
-
-            return {
-              globalProgress,
-              activeChapter:
-                self.progress > 0.1 ? chapterId : prev.activeChapter,
-              chapterProgress: newProgress,
-            };
-          });
+          progressMap.set(chapterId, self.progress);
+          recomputeState();
         },
       });
 
-      scrollTriggersRef.current.push(trigger);
+      scrollTriggersRef.current.push(visibilityTrigger);
+      scrollTriggersRef.current.push(progressTrigger);
     });
 
     ScrollTrigger.refresh();

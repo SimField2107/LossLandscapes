@@ -48,12 +48,12 @@ export interface ChapterProgress {
 
 export const CHAPTER_ORDER: ChapterId[] = [
   "hero",
+  "explorer",
   "problem",
   "method",
   "normalization",
   "reveal",
   "trajectory",
-  "explorer",
   "citation",
 ];
 

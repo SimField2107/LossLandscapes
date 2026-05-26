@@ -41,7 +41,6 @@ function PageContent() {
           activeArchitecture={isExplorerActive ? architecture : undefined}
           colorMode={activeColorMode}
           showTrajectory={isExplorerActive ? showTrajectory : false}
-          enableControls={isExplorerActive}
         />
       </LandscapeCanvas>
 
@@ -59,12 +58,12 @@ function PageContent() {
 
       <main className={styles.main}>
         <Hero />
+        <Explorer />
         <Problem />
         <Method />
         <Normalization />
         <Reveal />
         <Trajectory />
-        <Explorer />
         <Citation />
       </main>
     </>

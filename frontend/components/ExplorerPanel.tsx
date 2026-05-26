@@ -28,7 +28,7 @@ export default function ExplorerPanel({
   return (
     <aside className={styles.panel}>
       <div className={styles.header}>
-        <span className={styles.chapterLabel}>06 · Explorer</span>
+        <span className={styles.chapterLabel}>02 · Explorer</span>
         <h2 className={styles.chapterTitle}>Interactive Playground</h2>
         <p className={styles.chapterDescription}>
           The graph is yours. Rotate, zoom, and switch architectures to compare

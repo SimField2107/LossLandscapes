@@ -41,7 +41,7 @@ export default function LandscapeCanvas({
     <div className={`${styles.canvasContainer} ${className ?? ""}`}>
       <Canvas
         camera={{
-          position: [2.8, 1.8, 2.8],
+          position: [1.6, 1.0, 1.6],
           fov: 40,
           near: 0.1,
           far: 100,

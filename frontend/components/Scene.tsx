@@ -13,7 +13,6 @@ interface SceneProps {
   activeArchitecture?: string;
   colorMode?: ColorMode;
   showTrajectory?: boolean;
-  enableControls?: boolean;
 }
 
 function getChapterConfig(chapterId: ChapterId) {
@@ -76,7 +75,6 @@ export default function Scene({
   activeArchitecture,
   colorMode = "jet",
   showTrajectory: showTrajectoryProp = false,
-  enableControls = false,
 }: SceneProps) {
   const {
     globalProgress,
@@ -105,7 +103,7 @@ export default function Scene({
     activeChapter === "trajectory" ? getChapterProgress("trajectory") : 1;
 
   const isExplorerActive = activeChapter === "explorer";
-  const shouldEnableControls = enableControls || isExplorerActive;
+  const isCloseUpChapter = activeChapter === "hero" || activeChapter === "explorer";
 
   const lossRange = useMemo(() => getLossRange(landscapeA), [landscapeA]);
 
@@ -113,10 +111,9 @@ export default function Scene({
     <>
       <CameraRig
         progress={globalProgress}
-        enableControls={shouldEnableControls}
-        autoRotate={config.autoRotate && !shouldEnableControls}
+        autoRotate={config.autoRotate}
         autoRotateSpeed={0.3}
-        focusMode={isExplorerActive}
+        focusMode={isCloseUpChapter}
       />
 
       <PlotBox
