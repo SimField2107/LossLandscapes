@@ -2,29 +2,18 @@
 @use "../../styles/mixins" as *;
 
 .content {
-  @include glass;
-  padding: $space-8;
-  border-radius: $radius-2xl;
+  @include chapter-content;
   max-width: 700px;
   margin: 0 auto;
-
-  @include md {
-    padding: $space-12;
-  }
 }
 
 .chapterNumber {
-  display: block;
-  font-family: $font-family-mono;
-  font-size: $font-size-sm;
-  color: $color-accent-primary;
-  letter-spacing: $letter-spacing-widest;
-  margin-bottom: $space-4;
+  @include chapter-number;
   text-align: center;
 }
 
 .heading {
-  @include heading-2;
+  @include chapter-heading;
   margin-bottom: $space-8;
   text-align: center;
 }

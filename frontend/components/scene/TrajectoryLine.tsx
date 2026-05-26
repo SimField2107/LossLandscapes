@@ -3,6 +3,7 @@
 import { useRef, useMemo } from "react";
 import { Line } from "@react-three/drei";
 import * as THREE from "three";
+import { getGridMinMax } from "@/lib/landscape";
 import type { TrajectoryPoint, LandscapeData } from "@/lib/landscape";
 
 interface TrajectoryLineProps {
@@ -32,14 +33,7 @@ export default function TrajectoryLine({
     const [alphaMin, alphaMax] = landscape.alphaRange;
     const [betaMin, betaMax] = landscape.betaRange;
 
-    let lossMin = Infinity;
-    let lossMax = -Infinity;
-    for (const row of landscape.loss) {
-      for (const val of row) {
-        if (val < lossMin) lossMin = val;
-        if (val > lossMax) lossMax = val;
-      }
-    }
+    const { min: lossMin, max: lossMax } = getGridMinMax(landscape.loss);
     const lossRange = lossMax - lossMin || 1;
 
     const fullPts: THREE.Vector3[] = trajectory.map((point) => {

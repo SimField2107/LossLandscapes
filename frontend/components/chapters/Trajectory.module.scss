@@ -2,34 +2,20 @@
 @use "../../styles/mixins" as *;
 
 .content {
-  @include glass;
-  padding: $space-8;
-  border-radius: $radius-2xl;
-
-  @include md {
-    padding: $space-12;
-  }
+  @include chapter-content;
 }
 
 .chapterNumber {
-  display: block;
-  font-family: $font-family-mono;
-  font-size: $font-size-sm;
-  color: $color-accent-primary;
-  letter-spacing: $letter-spacing-widest;
-  margin-bottom: $space-4;
+  @include chapter-number;
 }
 
 .heading {
-  @include heading-2;
-  margin-bottom: $space-6;
+  @include chapter-heading;
 }
 
 .lead {
-  font-size: $font-size-xl;
-  color: $color-text-primary;
+  @include chapter-lead("large");
   margin-bottom: $space-4;
-  line-height: $line-height-relaxed;
 }
 
 .stats {

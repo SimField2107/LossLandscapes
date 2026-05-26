@@ -40,12 +40,6 @@ export type ChapterId =
 
 export type ColorMode = "jet" | "turbo" | "gradient";
 
-export interface ChapterProgress {
-  chapterId: ChapterId;
-  progress: number;
-  isActive: boolean;
-}
-
 export const CHAPTER_ORDER: ChapterId[] = [
   "hero",
   "explorer",
@@ -57,7 +51,7 @@ export const CHAPTER_ORDER: ChapterId[] = [
   "citation",
 ];
 
-export function normalizeGrid(grid: number[][]): number[][] {
+export function getGridMinMax(grid: number[][]): { min: number; max: number } {
   let min = Infinity;
   let max = -Infinity;
 
@@ -68,20 +62,5 @@ export function normalizeGrid(grid: number[][]): number[][] {
     }
   }
 
-  const range = max - min || 1;
-
-  return grid.map((row) => row.map((val) => (val - min) / range));
-}
-
-export function gridToFloat32Array(grid: number[][]): Float32Array {
-  const size = grid.length;
-  const data = new Float32Array(size * size);
-
-  for (let i = 0; i < size; i++) {
-    for (let j = 0; j < size; j++) {
-      data[i * size + j] = grid[i][j];
-    }
-  }
-
-  return data;
+  return { min, max };
 }

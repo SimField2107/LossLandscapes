@@ -3,6 +3,7 @@
 import { useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { getGridMinMax } from "@/lib/landscape";
 import type { LandscapeData } from "@/lib/landscape";
 
 import vertexShader from "./shaders/surface.vert";
@@ -26,17 +27,7 @@ function createDataTexture(
   const textureData = new Float32Array(size * size);
 
   if (data) {
-    let min = Infinity;
-    let max = -Infinity;
-
-    for (let i = 0; i < size; i++) {
-      for (let j = 0; j < size; j++) {
-        const val = data[i]?.[j] ?? 0;
-        if (val < min) min = val;
-        if (val > max) max = val;
-      }
-    }
-
+    const { min, max } = getGridMinMax(data);
     const range = max - min || 1;
 
     for (let i = 0; i < size; i++) {

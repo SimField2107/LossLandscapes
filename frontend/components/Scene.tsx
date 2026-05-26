@@ -7,6 +7,7 @@ import TrajectoryLine from "./scene/TrajectoryLine";
 import PlotBox from "./scene/PlotBox";
 import { useLandscape } from "@/hooks/useLandscape";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { getGridMinMax } from "@/lib/landscape";
 import type { ChapterId, ColorMode, LandscapeData } from "@/lib/landscape";
 
 interface SceneProps {
@@ -59,15 +60,7 @@ function getChapterConfig(chapterId: ChapterId) {
 
 function getLossRange(landscape: LandscapeData | null): [number, number] {
   if (!landscape) return [0, 1];
-
-  let min = Infinity;
-  let max = -Infinity;
-  for (const row of landscape.loss) {
-    for (const val of row) {
-      if (val < min) min = val;
-      if (val > max) max = val;
-    }
-  }
+  const { min, max } = getGridMinMax(landscape.loss);
   return [min, max];
 }
 
@@ -102,7 +95,6 @@ export default function Scene({
   const trajectoryProgress =
     activeChapter === "trajectory" ? getChapterProgress("trajectory") : 1;
 
-  const isExplorerActive = activeChapter === "explorer";
   const isCloseUpChapter = activeChapter === "hero" || activeChapter === "explorer";
 
   const lossRange = useMemo(() => getLossRange(landscapeA), [landscapeA]);

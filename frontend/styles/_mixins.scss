@@ -296,3 +296,66 @@
   white-space: nowrap;
   border: 0;
 }
+
+// -----------------------------------------------------------------------------
+// Chapter Components
+// -----------------------------------------------------------------------------
+@mixin chapter-content {
+  @include glass;
+  padding: $space-8;
+  border-radius: $radius-2xl;
+
+  @include md {
+    padding: $space-12;
+  }
+}
+
+@mixin chapter-number {
+  display: block;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: $color-accent-primary;
+  letter-spacing: $letter-spacing-widest;
+  margin-bottom: $space-4;
+}
+
+@mixin chapter-heading {
+  @include heading-2;
+  margin-bottom: $space-6;
+}
+
+@mixin chapter-lead($size: "normal") {
+  color: $color-text-primary;
+  margin-bottom: $space-6;
+  line-height: $line-height-relaxed;
+
+  @if $size == "large" {
+    font-size: $font-size-xl;
+    @include md {
+      font-size: $font-size-2xl;
+    }
+  } @else {
+    font-size: $font-size-lg;
+    @include md {
+      font-size: $font-size-xl;
+    }
+  }
+
+  strong {
+    color: $color-accent-secondary;
+  }
+}
+
+@mixin spinner($size: 40px) {
+  width: $size;
+  height: $size;
+  border: 3px solid $color-bg-elevated;
+  border-top-color: $color-accent-primary;
+  border-radius: $radius-full;
+  animation: spin 1s linear infinite;
+
+  @include reduced-motion {
+    animation: none;
+    border-color: $color-accent-primary;
+  }
+}

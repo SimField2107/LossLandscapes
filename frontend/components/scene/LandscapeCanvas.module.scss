@@ -18,17 +18,7 @@
 }
 
 .fallbackSpinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid $color-bg-elevated;
-  border-top-color: $color-accent-primary;
-  border-radius: $radius-full;
-  animation: spin 1s linear infinite;
-
-  @include reduced-motion {
-    animation: none;
-    border-color: $color-accent-primary;
-  }
+  @include spinner(40px);
 }
 
 @keyframes spin {
