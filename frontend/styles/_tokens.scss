@@ -3,34 +3,34 @@
 // =============================================================================
 
 // -----------------------------------------------------------------------------
-// Color Palette - Deep space/scientific aesthetic
+// Color Palette - Clean scientific aesthetic
 // -----------------------------------------------------------------------------
-$color-bg-primary: #0a0a0f;
-$color-bg-secondary: #12121a;
-$color-bg-elevated: #1a1a24;
-$color-bg-glass: rgba(18, 18, 26, 0.85);
+$color-bg-primary: #0d1117;
+$color-bg-secondary: #161b22;
+$color-bg-elevated: #21262d;
+$color-bg-glass: rgba(13, 17, 23, 0.9);
 
-$color-text-primary: #f0f0f5;
-$color-text-secondary: #a0a0b0;
-$color-text-muted: #606070;
+$color-text-primary: #e6edf3;
+$color-text-secondary: #8b949e;
+$color-text-muted: #6e7681;
 
-$color-accent-primary: #6366f1;
-$color-accent-secondary: #818cf8;
-$color-accent-glow: rgba(99, 102, 241, 0.4);
+$color-accent-primary: #2f81f7;
+$color-accent-secondary: #58a6ff;
+$color-accent-glow: rgba(47, 129, 247, 0.3);
 
-$color-gradient-start: #667eea;
-$color-gradient-end: #764ba2;
+$color-gradient-start: #2f81f7;
+$color-gradient-end: #1f6feb;
 
-$color-success: #10b981;
-$color-warning: #f59e0b;
-$color-error: #ef4444;
+$color-success: #3fb950;
+$color-warning: #d29922;
+$color-error: #f85149;
 
-// Viridis colormap reference (for documentation, actual implementation in shader)
-$viridis-0: #440154;
-$viridis-25: #3b528b;
-$viridis-50: #21918c;
-$viridis-75: #5ec962;
-$viridis-100: #fde725;
+// Scientific colormap reference (jet-style)
+$jet-0: #0000ff;
+$jet-25: #00ffff;
+$jet-50: #00ff00;
+$jet-75: #ffff00;
+$jet-100: #ff0000;
 
 // -----------------------------------------------------------------------------
 // Typography
@@ -154,8 +154,8 @@ $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
   0 4px 6px -4px rgba(0, 0, 0, 0.5);
 $shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5),
   0 8px 10px -6px rgba(0, 0, 0, 0.5);
-$shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
-$shadow-glow-lg: 0 0 40px rgba(99, 102, 241, 0.4);
+$shadow-glow: 0 0 20px rgba(47, 129, 247, 0.25);
+$shadow-glow-lg: 0 0 40px rgba(47, 129, 247, 0.35);
 
 // -----------------------------------------------------------------------------
 // Layout
@@ -168,5 +168,5 @@ $chapter-height: 100vh;
 // Glass Effect
 // -----------------------------------------------------------------------------
 $glass-blur: 12px;
-$glass-bg: rgba(18, 18, 26, 0.7);
-$glass-border: rgba(255, 255, 255, 0.06);
+$glass-bg: rgba(13, 17, 23, 0.85);
+$glass-border: rgba(48, 54, 61, 0.8);

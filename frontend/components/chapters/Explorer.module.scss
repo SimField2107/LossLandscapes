@@ -53,7 +53,13 @@
 }
 
 .icon {
-  font-size: $font-size-lg;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-accent-primary;
+  background: rgba($color-accent-primary, 0.1);
+  padding: $space-1 $space-2;
+  border-radius: $radius-sm;
 }
 
 .note {
@@ -106,18 +112,20 @@
   font-weight: $font-weight-medium;
   color: $color-text-secondary;
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
   border-radius: $radius-md;
   cursor: pointer;
   @include transition-fast;
 
   &:hover {
     color: $color-text-primary;
+    background: rgba($color-accent-primary, 0.1);
   }
 
   &[data-state="active"] {
-    background: $color-accent-primary;
-    color: white;
+    background: rgba($color-accent-primary, 0.15);
+    color: $color-accent-secondary;
+    border-color: $color-accent-primary;
   }
 }
 

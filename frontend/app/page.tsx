@@ -13,6 +13,7 @@ import Explorer from "@/components/chapters/Explorer";
 import Citation from "@/components/chapters/Citation";
 import ExplorerPanel from "@/components/ExplorerPanel";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
+import type { ColorMode } from "@/lib/landscape";
 import styles from "./page.module.scss";
 
 const LandscapeCanvas = dynamic(
@@ -25,7 +26,7 @@ const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 function PageContent() {
   const { activeChapter } = useScrollProgress();
   const [architecture, setArchitecture] = useState("resnet56_short");
-  const [colorMode, setColorMode] = useState<"loss" | "gradient">("loss");
+  const [colorMode, setColorMode] = useState<ColorMode>("jet");
   const [showTrajectory, setShowTrajectory] = useState(false);
 
   const isExplorerActive = activeChapter === "explorer";
@@ -35,7 +36,7 @@ function PageContent() {
       <LandscapeCanvas enablePostProcessing={true}>
         <Scene
           activeArchitecture={isExplorerActive ? architecture : undefined}
-          colorMode={isExplorerActive ? colorMode : "loss"}
+          colorMode={isExplorerActive ? colorMode : "jet"}
           showTrajectory={isExplorerActive ? showTrajectory : false}
           enableControls={isExplorerActive}
         />

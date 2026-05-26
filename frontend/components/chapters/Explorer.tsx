@@ -3,13 +3,14 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import * as Switch from "@radix-ui/react-switch";
 import ChapterLayout from "./ChapterLayout";
+import type { ColorMode } from "@/lib/landscape";
 import styles from "./Explorer.module.scss";
 
 interface ExplorerControlsProps {
   architecture: string;
   onArchitectureChange: (value: string) => void;
-  colorMode: "loss" | "gradient";
-  onColorModeChange: (mode: "loss" | "gradient") => void;
+  colorMode: ColorMode;
+  onColorModeChange: (mode: ColorMode) => void;
   showTrajectory: boolean;
   onShowTrajectoryChange: (show: boolean) => void;
 }
@@ -49,24 +50,24 @@ export function ExplorerControls({
       </div>
 
       <div className={styles.controlGroup}>
-        <label className={styles.label}>Color Mode</label>
-        <div className={styles.switchRow}>
-          <span className={colorMode === "loss" ? styles.active : ""}>
-            Loss
-          </span>
-          <Switch.Root
-            checked={colorMode === "gradient"}
-            onCheckedChange={(checked) =>
-              onColorModeChange(checked ? "gradient" : "loss")
-            }
-            className={styles.switch}
-          >
-            <Switch.Thumb className={styles.switchThumb} />
-          </Switch.Root>
-          <span className={colorMode === "gradient" ? styles.active : ""}>
-            Gradient
-          </span>
-        </div>
+        <label className={styles.label}>Colormap</label>
+        <Tabs.Root
+          value={colorMode}
+          onValueChange={(v) => onColorModeChange(v as ColorMode)}
+          className={styles.tabs}
+        >
+          <Tabs.List className={styles.tabsList}>
+            <Tabs.Trigger value="jet" className={styles.tabsTrigger}>
+              Jet
+            </Tabs.Trigger>
+            <Tabs.Trigger value="turbo" className={styles.tabsTrigger}>
+              Turbo
+            </Tabs.Trigger>
+            <Tabs.Trigger value="gradient" className={styles.tabsTrigger}>
+              Gradient
+            </Tabs.Trigger>
+          </Tabs.List>
+        </Tabs.Root>
       </div>
 
       <div className={styles.controlGroup}>
@@ -100,23 +101,23 @@ export default function Explorer() {
 
         <div className={styles.instructions}>
           <div className={styles.instruction}>
-            <span className={styles.icon}>🖱️</span>
-            <span>Drag to rotate</span>
+            <span className={styles.icon}>Click + Drag</span>
+            <span>Rotate view</span>
           </div>
           <div className={styles.instruction}>
-            <span className={styles.icon}>🔍</span>
-            <span>Scroll to zoom</span>
+            <span className={styles.icon}>Scroll</span>
+            <span>Zoom in/out</span>
           </div>
           <div className={styles.instruction}>
-            <span className={styles.icon}>⚙️</span>
-            <span>Use controls to switch architectures</span>
+            <span className={styles.icon}>Controls</span>
+            <span>Switch architectures</span>
           </div>
         </div>
 
         <p className={styles.note}>
-          The controls above the visualization let you switch between different
-          neural network architectures and color modes. Watch how the landscape
-          changes dramatically based on architectural choices.
+          Use the control panel above to switch between different neural network
+          architectures and colormaps. Observe how skip connections create smooth,
+          convex landscapes while networks without them exhibit chaotic terrain.
         </p>
       </div>
     </ChapterLayout>

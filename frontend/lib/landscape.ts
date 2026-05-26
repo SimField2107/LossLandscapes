@@ -38,7 +38,7 @@ export type ChapterId =
   | "explorer"
   | "citation";
 
-export type ColorMode = "loss" | "gradient";
+export type ColorMode = "jet" | "turbo" | "gradient";
 
 export interface ChapterProgress {
   chapterId: ChapterId;

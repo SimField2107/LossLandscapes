@@ -1,14 +1,15 @@
 "use client";
 
 import { ExplorerControls } from "./chapters/Explorer";
+import type { ColorMode } from "@/lib/landscape";
 import styles from "./ExplorerPanel.module.scss";
 
 interface ExplorerPanelProps {
   visible: boolean;
   architecture: string;
   onArchitectureChange: (value: string) => void;
-  colorMode: "loss" | "gradient";
-  onColorModeChange: (mode: "loss" | "gradient") => void;
+  colorMode: ColorMode;
+  onColorModeChange: (mode: ColorMode) => void;
   showTrajectory: boolean;
   onShowTrajectoryChange: (show: boolean) => void;
 }

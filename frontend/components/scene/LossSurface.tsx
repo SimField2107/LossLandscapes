@@ -13,7 +13,7 @@ interface LossSurfaceProps {
   landscapeB?: LandscapeData | null;
   morphProgress?: number;
   heightScale?: number;
-  colorMode?: "loss" | "gradient";
+  colorMode?: "jet" | "turbo" | "gradient";
   wireframe?: boolean;
 }
 
@@ -67,7 +67,7 @@ export default function LossSurface({
   landscapeB,
   morphProgress = 0,
   heightScale = 0.8,
-  colorMode = "loss",
+  colorMode = "jet",
   wireframe = false,
 }: LossSurfaceProps) {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -97,12 +97,12 @@ export default function LossSurface({
       uGradientMap: { value: gradientTextureA },
       uHeightScale: { value: heightScale },
       uMorph: { value: 0 },
-      uColorLow: { value: new THREE.Color("#440154") },
-      uColorMid: { value: new THREE.Color("#21918c") },
-      uColorHigh: { value: new THREE.Color("#fde725") },
-      uFresnelPower: { value: 2.5 },
-      uRimIntensity: { value: 0.4 },
-      uRimColor: { value: new THREE.Color("#6366f1") },
+      uColorLow: { value: new THREE.Color("#0000ff") },
+      uColorMid: { value: new THREE.Color("#00ff00") },
+      uColorHigh: { value: new THREE.Color("#ff0000") },
+      uFresnelPower: { value: 3.0 },
+      uRimIntensity: { value: 0.3 },
+      uRimColor: { value: new THREE.Color("#ffffff") },
       uColorMode: { value: 0 },
     }),
     [heightTextureA, heightTextureB, gradientTextureA, heightScale]
@@ -118,8 +118,10 @@ export default function LossSurface({
 
   useEffect(() => {
     if (materialRef.current) {
-      materialRef.current.uniforms.uColorMode.value =
-        colorMode === "gradient" ? 1 : 0;
+      let mode = 0;
+      if (colorMode === "turbo") mode = 1;
+      else if (colorMode === "gradient") mode = 2;
+      materialRef.current.uniforms.uColorMode.value = mode;
     }
   }, [colorMode]);
 

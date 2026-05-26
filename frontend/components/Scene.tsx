@@ -58,7 +58,7 @@ function getChapterConfig(chapterId: ChapterId) {
 
 export default function Scene({
   activeArchitecture,
-  colorMode = "loss",
+  colorMode = "jet",
   showTrajectory: showTrajectoryProp = false,
   enableControls = false,
 }: SceneProps) {

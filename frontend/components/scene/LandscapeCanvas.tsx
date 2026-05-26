@@ -60,7 +60,7 @@ export default function LandscapeCanvas({
         }}
       >
         <Suspense fallback={null}>
-          <color attach="background" args={["#0a0a0f"]} />
+          <color attach="background" args={["#0d1117"]} />
 
           <ambientLight intensity={0.3} />
           <directionalLight
