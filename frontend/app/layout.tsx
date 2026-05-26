@@ -23,7 +23,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://frontend-seven-liart-48.vercel.app"),
+  metadataBase: new URL("https://loss-landscape.vercel.app"),
   title: "Loss Landscape Visualizer | Neural Network Optimization",
   description:
     "An interactive visualization of neural network loss landscapes based on Li et al. (2018). Explore how network architecture affects the optimization landscape.",
