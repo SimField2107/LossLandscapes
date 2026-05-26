@@ -23,6 +23,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://losslandscape.vercel.app"),
   title: "Loss Landscape Visualizer | Neural Network Optimization",
   description:
     "An interactive visualization of neural network loss landscapes based on Li et al. (2018). Explore how network architecture affects the optimization landscape.",
@@ -36,18 +37,33 @@ export const metadata: Metadata = {
     "skip connections",
   ],
   authors: [{ name: "Li et al.", url: "https://arxiv.org/abs/1712.09913" }],
+  creator: "Seline Davies",
   openGraph: {
     title: "Loss Landscape Visualizer",
     description:
-      "Interactive 3D visualization of neural network loss landscapes",
+      "Interactive 3D visualization of neural network loss landscapes. See how skip connections transform chaotic optimization surfaces into smooth, trainable landscapes.",
     type: "website",
     locale: "en_US",
+    siteName: "Loss Landscape Visualizer",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1024,
+        height: 625,
+        alt: "3D visualization of a neural network loss landscape with jet colormap",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Loss Landscape Visualizer",
     description:
       "Interactive 3D visualization of neural network loss landscapes",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
